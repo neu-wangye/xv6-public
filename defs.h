@@ -116,6 +116,8 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+int             clone(void(*fcn)(void*), void *, void*);
+int             join(void ** stack);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -181,6 +183,10 @@ void            switchuvm(struct proc*);
 void            switchkvm(void);
 int             copyout(pde_t*, uint, void*, uint);
 void            clearpteu(pde_t *pgdir, char *uva);
+
+// ithread.c
+int             ithread_create(ithread_t* t, void(*fcn)(void*), void *arg);
+int             ithread_join(ithread_t* t);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
